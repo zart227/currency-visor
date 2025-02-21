@@ -1,0 +1,255 @@
+/**
+ * Development Standards and Best Practices
+ * 
+ * Standards and guidelines for modern Laravel application development with Vue.js
+ * These rules define the structure, conventions, and best practices.
+ */
+
+Core Technology Stack
+- Laravel 11+ with PHP 8.3+
+- Vue 3 Composition API with TypeScript
+- Inertia.js for SPA architecture
+- Pinia for state management
+- Tailwind CSS for styling
+- Zod for validation
+- Pest for testing
+- Docker for containerization
+
+Laravel 11+ Restricted Patterns (DO NOT USE)
+- Global facades (use dependency injection)
+- Traditional service providers (use new registration system)
+- Closure routes (use attribute routing)
+- Traditional middleware groups (use middleware attributes)
+- Traditional event/listener registration (use attributes)
+- Traditional policy registration (use attributes)
+- Traditional validation rules (use form request classes)
+- Traditional command registration (use attributes)
+- Traditional schedule definition (use attributes)
+- Traditional broadcasting events (use attributes)
+- Traditional mail template location (use new structure)
+- Traditional queue configuration (use attributes)
+- Traditional notification registration (use attributes)
+
+File Naming Conventions
+- PHP Classes: PascalCase (UserService.php)
+- PHP Interfaces: PascalCase with I prefix (IUserRepository.php)
+- PHP Traits: PascalCase with Trait suffix (LoggableTrait.php)
+- Vue Components: PascalCase (UserProfile.vue)
+- TypeScript Files: kebab-case (user-types.ts)
+- Test Files: kebab-case.test.ts/php
+- CSS Files: kebab-case (button-styles.css)
+- Configuration Files: kebab-case (database-config.php)
+
+Code Style Conventions
+- Classes/Interfaces: PascalCase
+- Methods/Functions: camelCase
+- Variables: camelCase (JS/TS), snake_case (PHP)
+- Constants: SCREAMING_SNAKE_CASE
+- Enums: PascalCase
+- Database Tables: snake_case, plural
+- Database Columns: snake_case
+- CSS Classes: kebab-case
+- Type Definitions: PascalCase with Type suffix
+- No "any" type in TypeScript
+- Use strict typing in PHP
+
+Project Structure (Laravel)
+/app
+  /Http
+    /Controllers     # Request handlers
+    /Middleware     # HTTP middleware
+    /Requests       # Form requests
+    /Resources     # API resources
+  /Services        # Business logic
+  /Repositories    # Data access layer
+  /Models         # Eloquent models
+  /Events         # Domain events
+  /Listeners      # Event handlers
+  /Actions        # Single-purpose business actions
+  /DTOs           # Data transfer objects
+  /Enums          # Enumerations
+  /Exceptions     # Custom exceptions
+  /Support        # Helper classes
+
+Project Structure (Vue)
+/resources/js
+  /Pages          # Page components
+  /Components     # Reusable components
+  /Composables    # Vue composables
+  /Stores         # Pinia stores
+  /Types          # TypeScript types
+  /Utils          # Helper functions
+  /Constants      # Application constants
+  /Api            # API client services
+  /Layouts        # Layout components
+  /Tests          # Frontend tests
+
+Component Guidelines
+- Use <script setup lang="ts">
+- Props must be typed and readonly
+- Emits must be typed
+- Use composition API
+- Follow single responsibility principle
+- Implement proper prop validation
+- Use computed properties for derived state
+- Keep components small and focused
+- Use slots for flexible layouts
+- Implement error boundaries
+
+API Guidelines
+- Use RESTful conventions
+- Implement proper error handling
+- Use DTOs for request/response
+- Implement rate limiting
+- Version your APIs
+- Use proper HTTP status codes
+- Implement proper validation
+- Document using OpenAPI/Swagger
+- Use proper content negotiation
+- Implement proper caching
+
+Security Best Practices
+- Implement CSRF protection
+- Use proper authentication
+- Implement rate limiting
+- Validate all input
+- Prevent XSS attacks
+- Use proper session handling
+- Implement proper authorization
+- Use secure headers
+- Implement audit logging
+- Use proper password hashing
+- Implement 2FA where needed
+
+Testing Strategy
+- Write unit tests (Pest/Vitest)
+- Write feature tests
+- Write integration tests
+- Write E2E tests (Cypress)
+- Mock external services
+- Use factories for test data
+- Implement CI/CD pipelines
+- Use proper test coverage
+- Write testable code
+- Use proper test naming
+
+Performance Optimization
+- Implement proper caching
+- Use lazy loading
+- Optimize database queries
+- Use proper indexing
+- Implement queue workers
+- Use proper asset optimization
+- Implement CDN
+- Use proper load balancing
+- Monitor performance
+- Use proper logging
+
+Backend Architecture Patterns
+- Use Action classes for business logic
+  - Each action implements a "DoesSomething" contract
+  - Actions handle validation using Constants.php
+  - Controllers delegate processing to Actions
+- Use Repository pattern for data access layer
+- Use Service classes for complex business logic
+- Use DTOs for data transfer between layers
+- Use Events for asynchronous operations
+- Use Jobs for background processing
+
+API Development Standards
+- Store API controllers in Http/Controllers/API
+- Use ApiResponses trait in all API controllers
+- Define routes in api.php with proper versioning
+- Protect routes with sanctum middleware by default
+- Implement proper request validation
+- Use resource collections for response formatting
+- Document API using OpenAPI/Swagger
+- Implement rate limiting for all endpoints
+- Use proper HTTP status codes
+- Handle CORS properly
+
+Database Best Practices
+- Use migrations for schema changes
+- Use seeders for test data
+- Use factories for test data generation
+- Implement proper indexing
+- Use database transactions
+- Use prepared statements
+- Implement soft deletes where appropriate
+- Use proper foreign key constraints
+- Optimize queries using explain
+- Use query caching when appropriate
+
+Error Handling & Logging
+- Use Laravel's exception handler
+- Create custom exceptions when needed
+- Use try-catch for expected exceptions
+- Implement proper error logging
+- Use contextual logging
+- Monitor application health
+- Set up proper alerting
+- Use proper log levels
+- Implement audit logging
+- Use proper stack trace formatting
+
+Tailwind CSS Guidelines
+- Use utility classes for responsive design
+- Implement consistent color scheme
+- Use typography plugin for content
+- Use @apply for reusable styles
+- Configure theme in tailwind.config.js
+- Use JIT mode for development
+- Purge unused CSS in production
+- Use proper breakpoints
+- Implement dark mode support
+- Use proper spacing scale
+
+Performance Optimization
+- Implement proper caching strategies
+  - Use Redis for session/cache
+  - Cache database queries
+  - Cache API responses
+  - Use model caching
+- Optimize database performance
+  - Eager load relationships
+  - Use chunking for large datasets
+  - Implement proper indexing
+  - Use database transactions
+- Implement queue workers
+  - Use proper queue drivers
+  - Handle failed jobs
+  - Set up job retries
+  - Monitor queue health
+- Asset optimization
+  - Use proper bundling
+  - Implement lazy loading
+  - Optimize images
+  - Use CDN when appropriate
+
+Security Measures
+- Input validation and sanitization
+  - Validate all user input
+  - Use form requests
+  - Implement request sanitization
+  - Use proper type casting
+- Authentication and authorization
+  - Use Laravel Sanctum
+  - Implement proper roles/permissions
+  - Use secure session handling
+  - Implement 2FA where needed
+- Database security
+  - Use prepared statements
+  - Implement proper transactions
+  - Use encryption where needed
+  - Implement proper backups
+- API security
+  - Use proper authentication
+  - Implement rate limiting
+  - Use HTTPS only
+  - Implement proper CORS
+- General security
+  - Use CSRF protection
+  - Implement proper headers
+  - Use secure dependencies
+  - Regular security audits
+
