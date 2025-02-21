@@ -36,8 +36,9 @@ return [
     ],
 
     'exchange_rate' => [
+        'driver' => env('EXCHANGE_RATE_DRIVER', 'rest'),
         'key' => env('EXCHANGE_RATE_API_KEY'),
-        'url' => env('EXCHANGE_RATE_API_URL'),
+        'url' => env('EXCHANGE_RATE_API_URL', 'https://v6.exchangerate-api.com/v6'),
     ],
 
 ];
